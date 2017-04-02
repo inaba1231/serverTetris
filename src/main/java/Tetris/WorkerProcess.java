@@ -1,3 +1,5 @@
+package Tetris;
+
 public class WorkerProcess
 {
     public static void main(String[] args)
