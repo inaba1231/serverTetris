@@ -144,18 +144,19 @@ public class PlayerSkeleton {
 
     private static void printPopulation(double[][] population) {
         for (int i = 0; i < population.length; i++) {
-            System.out.print("{<<<");
+            System.out.print("{");
             for (int j = 0; j < population[i].length; j++) {
                 System.out.print(population[i][j]);
                 if (j != population[i].length - 1) {
                     System.out.print(",");
                 }
             }
-            System.out.print(">>>}");
+            System.out.print("}");
             if (i != population.length - 1) {
                 System.out.print(", ");
             }
         }
+        System.out.println("");
     }
 
     public static void main(String[] args) {
