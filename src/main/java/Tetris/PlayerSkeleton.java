@@ -169,7 +169,7 @@ public class PlayerSkeleton {
             population = select(population, cumulativeFitness);
             crossOver(population);
             mutate(population);
-            if (generation % 50 == 0) {
+            if (generation % 10 == 0) {
                 printPopulation(population);
             }
             generation++;
