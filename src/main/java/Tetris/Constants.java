@@ -9,6 +9,7 @@ public class Constants {
     public static final int ROWS = 21;
     public static final int SET_LENGTH = 7;
     public static final String filename = "src/main/java/Tetris/population.txt";
+    public static volatile boolean IS_RUNNING = false;
 
     // Tune these values for optimal learning.
     public static final int POPULATION_SIZE = 20;

@@ -20,8 +20,8 @@
                     <name>player</name>
                 </program>
                 <program>
-                    <mainClass>Tetris.OneOffProcess</mainClass>
-                    <name>oneoff</name>
+                    <mainClass>Tetris.StopProcess</mainClass>
+                    <name>stop</name>
                 </program>
             </programs>
           </configuration>

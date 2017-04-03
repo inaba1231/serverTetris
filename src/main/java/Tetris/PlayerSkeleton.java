@@ -1,6 +1,5 @@
 package Tetris;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import static Tetris.Constants.*;
@@ -159,21 +158,31 @@ public class PlayerSkeleton {
         }
     }
 
+    private static void printPopulation(double[][] population) {
+        for (int i = 0; i < population.length; i++) {
+            for (int j = 0; j < population[0].length; j++) {
+                System.out.print(population[i][j] + ",");
+            }
+            System.out.println("");
+        }
+    }
+
     public static void main(String[] args) {
         IO io = new IO();
         int generation = 1;
+        double[][] population = io.importPopulation();
 
-        while(true) {
-            double[][] population = io.importPopulation();
+        IS_RUNNING = true;
+        while(IS_RUNNING) {
             System.out.print("Best score in generation " + generation + " is: ");
             int[] cumulativeFitness = getCumulativeFitness(population);
-            double[][] nextPopulation = select(population, cumulativeFitness);
-            crossOver(nextPopulation);
-            mutate(nextPopulation);
-            io.exportPopulation(nextPopulation);
+            population = select(population, cumulativeFitness);
+            crossOver(population);
+            mutate(population);
             generation++;
         }
 
+        printPopulation(population);
     }
 
 }
