@@ -10,6 +10,7 @@ public class PlayerSkeleton {
     public static MakeMove m;
     public static LegalMoves l;
     public static Random nature;
+    public static boolean isRunning;
 
     public PlayerSkeleton(double[] set) {
         h = new Heuristics(set.length, set);
@@ -156,7 +157,8 @@ public class PlayerSkeleton {
         int generation = 1;
         double[][] population = io.importPopulation();
 
-        while(generation < 4) {
+        isRunning = true;
+        while(isRunning) {
             System.out.print("Best score in generation " + generation + " is: ");
             int[] cumulativeFitness = getCumulativeFitness(population);
             population = select(population, cumulativeFitness);
@@ -166,6 +168,10 @@ public class PlayerSkeleton {
         }
 
         printPopulation(population);
+    }
+
+    public static void stop() {
+        isRunning = false;
     }
 
 }
