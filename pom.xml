@@ -17,7 +17,7 @@
             <programs>
                 <program>
                     <mainClass>Tetris.PlayerSkeleton</mainClass>
-                    <name>player</name>
+                    <name>play</name>
                 </program>
                 <program>
                     <mainClass>Tetris.StopProcess</mainClass>

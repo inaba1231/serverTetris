@@ -1,1 +1,1 @@
-worker: sh target/bin/player
+worker: sh target/bin/play
