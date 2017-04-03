@@ -10,7 +10,6 @@ public class PlayerSkeleton {
     public static MakeMove m;
     public static LegalMoves l;
     public static Random nature;
-    public static boolean isRunning;
 
     public PlayerSkeleton(double[] set) {
         h = new Heuristics(set.length, set);
@@ -26,22 +25,6 @@ public class PlayerSkeleton {
             State dummyState = new State(s);
             dummyState.makeMove(x);
             double sum = h.heuristic(dummyState);
-            
-            /*int[][] field = copy(s.getField());
-            m.makeMove(field, x[0], x[1], s.getNextPiece(), s.getTop());
-            double sum = h.heuristic(field);
-	    //Expectimax algorithm
-            double sum = 0;
-            for (int i = 0; i < 7; i++) {
-                for (int[] possibleMove : l.legalMoves[i]) {
-                    int[][] helper = copy(field);
-                    //todo
-                    //deal with s.getTop();
-                    m.makeMove(helper, possibleMove[0], possibleMove[1], i, s.getTop());
-                    sum += h.heuristic(helper);
-                }
-            }
-            */
             
             if (sum > max) {
                 max = sum;
@@ -173,8 +156,7 @@ public class PlayerSkeleton {
         int generation = 1;
         double[][] population = io.importPopulation();
 
-        isRunning = true;
-        while(isRunning) {
+        while(generation < 4) {
             System.out.print("Best score in generation " + generation + " is: ");
             int[] cumulativeFitness = getCumulativeFitness(population);
             population = select(population, cumulativeFitness);
@@ -184,12 +166,6 @@ public class PlayerSkeleton {
         }
 
         printPopulation(population);
-    }
-
-    public static void stop() {
-        if (isRunning) {
-            isRunning = false;
-        }
     }
 
 }
