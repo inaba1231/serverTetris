@@ -163,7 +163,7 @@ public class PlayerSkeleton {
 
     public static void main(String[] args) {
         IO io = new IO();
-        int generation = 1;
+        int generation = 151;
         double[][] population = io.importPopulation();
 
         while(true) {
