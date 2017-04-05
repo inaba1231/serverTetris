@@ -46,6 +46,7 @@ public class PlayerSkeleton {
     private static int[] getCumulativeFitness(double[][] population) {
         int totalFitness = 0;
         int[] cumulativeFitness = new int[population.length];
+        int worstScore = Integer.MAX_VALUE;
         int bestScore = 0;
 
         for (int i = 0; i < population.length; i++) {
@@ -71,12 +72,13 @@ public class PlayerSkeleton {
 
             //frame.dispose();
             //System.out.println("Set " + i + " completed " + s.getRowsCleared() + " rows.");
-            bestScore = bestScore < s.getRowsCleared() ? s.getRowsCleared() : bestScore;
+            if (s.getRowsCleared() < worstScore) worstScore = s.getRowsCleared();
+            if (s.getRowsCleared() > bestScore) bestScore = s.getRowsCleared();
             totalFitness += s.getRowsCleared();
             cumulativeFitness[i] = totalFitness;
         }
 
-        System.out.println(bestScore);
+        System.out.println(worstScore + " | " + bestScore);
 
         return cumulativeFitness;
     }
@@ -165,7 +167,7 @@ public class PlayerSkeleton {
         double[][] population = io.importPopulation();
 
         while(true) {
-            System.out.print("Best score in generation " + generation + " is: ");
+            System.out.print("Generation " + generation + " (worst | best): ");
             int[] cumulativeFitness = getCumulativeFitness(population);
             population = select(population, cumulativeFitness);
             crossOver(population);
