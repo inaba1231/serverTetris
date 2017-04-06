@@ -6,16 +6,14 @@ import static Tetris.Constants.*;
 
 public class PlayerSkeleton {
 
-    public static Heuristics h;
-    public static MakeMove m;
-    public static LegalMoves l;
-    public static Random nature;
+    public Heuristics h;
+    public MakeMove m;
+    public LegalMoves l;
 
     public PlayerSkeleton(double[] set) {
         h = new Heuristics(set.length, set);
         m = new MakeMove();
         l = new LegalMoves();
-        nature = new Random();
     }
 
     public int[] pickMove(State s, int[][] legalMoves) {

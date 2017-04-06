@@ -4,18 +4,23 @@ package Tetris;
  * Created by kazuhiro on 6/4/17.
  */
 public class GameThread implements Runnable {
-    Population population;
+    int[] fitnessValues;
+    double[] set;
     int setIndex;
 
-    public GameThread(Population population, int setIndex) {
-        this.population = population;
+    public GameThread(int[] fitnessValues, double[] set, int setIndex) {
+        this.fitnessValues = fitnessValues;
+        this.set = set;
         this.setIndex = setIndex;
+    }
+
+    private synchronized void updateFitness(int score) {
+        fitnessValues[setIndex] = score;
     }
 
     public void run() {
         State s = new State();
         //TFrame frame = new TFrame(s);
-        double[] set = population.population[setIndex];
         PlayerSkeleton p = new PlayerSkeleton(set);
         //int movesMade = 0;
         while (!s.hasLost() /* && movesMade < 2000000 */) {
@@ -33,9 +38,7 @@ public class GameThread implements Runnable {
         }
         //frame.dispose();
         //System.out.println("Set " + i + " completed " + s.getRowsCleared() + " rows.");
-        if (s.getRowsCleared() < population.worstScore) population.worstScore = s.getRowsCleared();
-        if (s.getRowsCleared() > population.bestScore) population.bestScore = s.getRowsCleared();
-        population.fitnessValues[setIndex] = s.getRowsCleared();
-        System.out.print(s.getRowsCleared() + ", ");
+        updateFitness(s.getRowsCleared());
+        //System.out.print(s.getRowsCleared() + ", ");
     }
 }

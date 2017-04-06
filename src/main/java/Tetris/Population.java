@@ -31,40 +31,28 @@ public class Population {
 
         Thread[] threads = new Thread[population.length];
 
-        System.out.print("Fitness values are: ");
         for (int i = 0; i < threads.length; i++) {
-            threads[i] = new Thread(new GameThread(this, i));
+            threads[i] = new Thread(new GameThread(fitnessValues, population[i], i));
             threads[i].start();
         }
 
         for (int i = 0; i < threads.length; i++) {
             try {
                 threads[i].join();
+
                 if (i == 0) {
                     cumulativeFitness[i] = fitnessValues[i];
                 } else {
                     cumulativeFitness[i] = fitnessValues[i] + cumulativeFitness[i - 1];
                 }
+
+                if (fitnessValues[i] < worstScore) worstScore = fitnessValues[i];
+
+                if (fitnessValues[i] > bestScore) bestScore = fitnessValues[i];
             } catch(Exception e) {
 
             }
         }
-        System.out.println("");
-
-        System.out.print("Fitness values are: ");
-        for (int i = 0; i < fitnessValues.length; i++) {
-            System.out.print(fitnessValues[i] + ", ");
-        }
-        System.out.println("");
-
-        /*
-        System.out.print("Cumulative fitness values are: ");
-        for (int i = 0; i < cumulativeFitness.length; i++) {
-            System.out.print(cumulativeFitness[i] + ", ");
-        }
-        System.out.println("");
-        */
-
 
         System.out.println("Generation " + generation + " (worst | best): " + worstScore + " | " + bestScore);
         if (generation % 5 == 0) {
