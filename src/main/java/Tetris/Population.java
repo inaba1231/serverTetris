@@ -4,48 +4,24 @@ import java.util.Random;
 
 import static Tetris.Constants.*;
 
-public class PlayerSkeleton {
+/**
+ * Created by kazuhiro on 6/4/17.
+ */
+public class Population {
+    double[][] population;
+    int generation;
+    int[] cumulativeFitness;
+    public Random nature;
 
-    public static Heuristics h;
-    public static MakeMove m;
-    public static LegalMoves l;
-    public static Random nature;
-
-    public PlayerSkeleton(double[] set) {
-        h = new Heuristics(set.length, set);
-        m = new MakeMove();
-        l = new LegalMoves();
-        nature = new Random();
+    public Population(double[][] population, int generation) {
+        this.population = population;
+        this.generation = generation;
+        this.nature = new Random();
     }
 
-    public int[] pickMove(State s, int[][] legalMoves) {
-        int[] move = {0, 0};
-        double max = -Double.MAX_VALUE;
-        for (int[] x : legalMoves) {
-            State dummyState = new State(s);
-            dummyState.makeMove(x);
-            double sum = h.heuristic(dummyState);
-            
-            if (sum > max) {
-                max = sum;
-                move[0] = x[0];
-                move[1] = x[1];
-            }
-        }
-        return move;
-    }
-
-    public static double[] copy(double[] a) {
-        double[] field = new double[a.length];
-        for (int i = 0; i < field.length; i++) {
-            field[i] = a[i];
-        }
-        return field;
-    }
-
-    private static int[] getCumulativeFitness(double[][] population) {
+    public void play() {
         int totalFitness = 0;
-        int[] cumulativeFitness = new int[population.length];
+        cumulativeFitness = new int[population.length];
         int worstScore = Integer.MAX_VALUE;
         int bestScore = 0;
 
@@ -76,9 +52,22 @@ public class PlayerSkeleton {
             cumulativeFitness[i] = totalFitness;
         }
 
-        System.out.println(worstScore + " | " + bestScore);
+        System.out.println("Generation " + generation + " (worst | best): " + worstScore + " | " + bestScore);
+        if (generation % 5 == 0) {
+            printPopulation();
+        }
+        select();
+        crossOver();
+        mutate();
+        generation++;
+    }
 
-        return cumulativeFitness;
+    public static double[] copy(double[] a) {
+        double[] field = new double[a.length];
+        for (int i = 0; i < field.length; i++) {
+            field[i] = a[i];
+        }
+        return field;
     }
 
     public static int binarySearch(int[] array, int number) {
@@ -98,10 +87,10 @@ public class PlayerSkeleton {
         }
     }
 
-    private static double[][] select(double[][] population, int[] cumulativeFitness) {
+    private void select() {
         int totalFitness = cumulativeFitness[cumulativeFitness.length - 1];
         if (totalFitness == 0) {
-            return BigBang.resetPopulation();
+            population = BigBang.resetPopulation();
         }
 
         double[][] nextPopulation = new double[POPULATION_SIZE][SET_LENGTH];
@@ -111,10 +100,10 @@ public class PlayerSkeleton {
             nextPopulation[i] = copy(population[selectedSet]);
             //System.out.println("Set " + selectedSet + " has been selected.");
         }
-        return nextPopulation;
+        population = nextPopulation;
     }
 
-    private static void crossOver(double[][] population) {
+    private void crossOver() {
         for (int i = 1; i < population.length; i = i + 2) {
             int crossOverPoint = nature.nextInt(population[i].length);
             for (int j = crossOverPoint; j < population[i].length; j++) {
@@ -126,7 +115,7 @@ public class PlayerSkeleton {
         }
     }
 
-    private static void mutate(double[][] population) {
+    private void mutate() {
         for (int i = 0; i < population.length; i++) {
             for (int j = 0; j < population[i].length; j++) {
                 if (nature.nextDouble() < MUTATION_RATE) {
@@ -142,7 +131,7 @@ public class PlayerSkeleton {
         }
     }
 
-    private static void printPopulation(double[][] population) {
+    private void printPopulation() {
         for (int i = 0; i < population.length; i++) {
             System.out.print("{");
             for (int j = 0; j < population[i].length; j++) {
@@ -158,14 +147,4 @@ public class PlayerSkeleton {
         }
         System.out.println("");
     }
-
-    public static void main(String[] args) {
-        IO io = new IO();
-        Population population = new Population(io.importPopulation(), 1);
-
-        while(true) {
-            population.play();
-        }
-    }
-
 }
