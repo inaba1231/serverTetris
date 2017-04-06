@@ -8,8 +8,8 @@ import static Tetris.Constants.ROWS;
  */
 public class Heuristics {
 
-    public static int size;
-    public static double[] weight;
+    public int size;
+    public double[] weight;
 
     public Heuristics(int size, double[] weight) {
         this.size = size;
