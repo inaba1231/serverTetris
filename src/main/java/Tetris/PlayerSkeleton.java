@@ -54,10 +54,10 @@ public class PlayerSkeleton {
             //TFrame frame = new TFrame(s);
             double[] set = population[i];
             PlayerSkeleton p = new PlayerSkeleton(set);
-            int movesMade = 0;
-            while (!s.hasLost() && movesMade < 2000000) {
+            //int movesMade = 0;
+            while (!s.hasLost() /* && movesMade < 2000000 */) {
                 s.makeMove(p.pickMove(s, s.legalMoves()));
-                movesMade++;
+                //movesMade++;
                 /*
                  s.draw();
                  s.drawNext(0, 0);
