@@ -91,6 +91,7 @@ public class Population {
         int totalFitness = cumulativeFitness[cumulativeFitness.length - 1];
         if (totalFitness == 0) {
             population = BigBang.resetPopulation();
+            return;
         }
 
         double[][] nextPopulation = new double[POPULATION_SIZE][SET_LENGTH];
