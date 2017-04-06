@@ -10,8 +10,12 @@ import static Tetris.Constants.*;
 public class Population {
     double[][] population;
     int generation;
+    int[] fitnessValues;
     int[] cumulativeFitness;
     public Random nature;
+    int worstScore;
+    int bestScore;
+
 
     public Population(double[][] population, int generation) {
         this.population = population;
@@ -20,37 +24,47 @@ public class Population {
     }
 
     public void play() {
-        int totalFitness = 0;
+        fitnessValues = new int[population.length];
         cumulativeFitness = new int[population.length];
-        int worstScore = Integer.MAX_VALUE;
-        int bestScore = 0;
+        worstScore = Integer.MAX_VALUE;
+        bestScore = 0;
 
-        for (int i = 0; i < population.length; i++) {
-            State s = new State();
-            //TFrame frame = new TFrame(s);
-            double[] set = population[i];
-            PlayerSkeleton p = new PlayerSkeleton(set);
-            int movesMade = 0;
-            while (!s.hasLost() && movesMade < 2000000) {
-                s.makeMove(p.pickMove(s, s.legalMoves()));
-                movesMade++;
-                /*
-                 s.draw();
-                 s.drawNext(0, 0);
-                 try {
-                 Thread.sleep(1);
-                 } catch (InterruptedException e) {
-                 e.printStackTrace();
-                 }
-                 */
-            }
-            //frame.dispose();
-            //System.out.println("Set " + i + " completed " + s.getRowsCleared() + " rows.");
-            if (s.getRowsCleared() < worstScore) worstScore = s.getRowsCleared();
-            if (s.getRowsCleared() > bestScore) bestScore = s.getRowsCleared();
-            totalFitness += s.getRowsCleared();
-            cumulativeFitness[i] = totalFitness;
+        Thread[] threads = new Thread[population.length];
+
+        System.out.print("Fitness values are: ");
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(new GameThread(this, i));
+            threads[i].start();
         }
+
+        for (int i = 0; i < threads.length; i++) {
+            try {
+                threads[i].join();
+                if (i == 0) {
+                    cumulativeFitness[i] = fitnessValues[i];
+                } else {
+                    cumulativeFitness[i] = fitnessValues[i] + cumulativeFitness[i - 1];
+                }
+            } catch(Exception e) {
+
+            }
+        }
+        System.out.println("");
+
+        System.out.print("Fitness values are: ");
+        for (int i = 0; i < fitnessValues.length; i++) {
+            System.out.print(fitnessValues[i] + ", ");
+        }
+        System.out.println("");
+
+        /*
+        System.out.print("Cumulative fitness values are: ");
+        for (int i = 0; i < cumulativeFitness.length; i++) {
+            System.out.print(cumulativeFitness[i] + ", ");
+        }
+        System.out.println("");
+        */
+
 
         System.out.println("Generation " + generation + " (worst | best): " + worstScore + " | " + bestScore);
         if (generation % 5 == 0) {
