@@ -35,7 +35,7 @@ public class PlayerSkeleton {
 
     public static void main(String[] args) {
         IO io = new IO();
-        Population population = new Population(io.importPopulation(), 201);
+        Population population = new Population(io.importPopulation(), 151);
         while(true) {
             population.play();
         }
