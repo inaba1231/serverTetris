@@ -56,13 +56,14 @@ public class Ecosystem {
         }
 
         select();
+        crossOver();
+        mutate();
 
         if (generation % exchangePeriod == 0) {
             System.out.println("After selection: ");
             printPopulation();
         }
-        crossOver();
-        mutate();
+
         generation++;
     }
 
