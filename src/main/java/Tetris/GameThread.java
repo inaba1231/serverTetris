@@ -54,7 +54,7 @@ public class GameThread implements Runnable {
                      */
             }
             //frame.dispose();
-            //System.out.println("Set " + i + " completed " + s.getRowsCleared() + " rows.");
+            //System.out.println("Set " + i + " of population " + populationIndex + " cleared " + s.getRowsCleared() + " rows.");
             updateCumulativeFitness(i, s.getRowsCleared());
             updateWorstScore(s.getRowsCleared());
             updateBestScore(s.getRowsCleared());
