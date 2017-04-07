@@ -11,7 +11,8 @@ public class Constants {
     public static final String filename = "src/main/java/Tetris/population.txt";
 
     // Tune these values for optimal learning.
+    public static final int POPULATION_COUNT = 8;
     public static final int POPULATION_SIZE = 8;
-    public static final double MUTATION_RATE = 0.055;
+    public static final double MUTATION_RATE = 0.03;
 
 }

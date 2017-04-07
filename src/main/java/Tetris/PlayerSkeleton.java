@@ -33,6 +33,19 @@ public class PlayerSkeleton {
         return move;
     }
 
+    private static double[][][] printPopulation(double[][][] population) {
+        for (int i = 0; i < population.length; i++) {
+            for(int j = 0; j < population[i].length; j++) {
+                for (int k = 0; k < population[i][j].length; k++) {
+                    System.out.print(population[i][j][k] + ", ");
+                }
+                System.out.println("");
+            }
+            System.out.println("");
+        }
+        return population;
+    }
+
     public static void main(String[] args) {
         IO io = new IO();
         Population population = new Population(io.importPopulation(), 151);
