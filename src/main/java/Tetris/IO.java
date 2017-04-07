@@ -13,7 +13,7 @@ import static Tetris.Constants.*;
  */
 public class IO {
 
-    public void exportPopulation(double[][][] population) {
+    public void exportEcosystem(double[][][] population) {
         try {
             PrintWriter writer = new PrintWriter(filename, "UTF-8");
 
@@ -36,7 +36,7 @@ public class IO {
         }
     }
 
-    public double[][][] importPopulation() {
+    public double[][][] importEcosystem() {
         double[][][] population = new double[POPULATION_COUNT][POPULATION_SIZE][SET_LENGTH];
 
         try {

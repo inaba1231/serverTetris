@@ -1,9 +1,5 @@
 package Tetris;
 
-import java.util.Random;
-
-import static Tetris.Constants.*;
-
 public class PlayerSkeleton {
 
     public Heuristics h;
@@ -48,9 +44,9 @@ public class PlayerSkeleton {
 
     public static void main(String[] args) {
         IO io = new IO();
-        Population population = new Population(io.importPopulation(), 151);
+        Ecosystem ecosystem = new Ecosystem(io.importEcosystem(), 151, 50);
         while(true) {
-            population.play();
+            ecosystem.play();
         }
     }
 
