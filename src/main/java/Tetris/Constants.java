@@ -13,6 +13,6 @@ public class Constants {
     // Tune these values for optimal learning.
     public static final int POPULATION_COUNT = 8;
     public static final int POPULATION_SIZE = 8;
-    public static final double MUTATION_RATE = 0.017;
+    public static final double MUTATION_RATE = 0.0357;
 
 }
