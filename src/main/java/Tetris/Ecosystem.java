@@ -50,11 +50,7 @@ public class Ecosystem {
             }
         }
 
-        if (generation % exchangePeriod == 0 || generation % 20 == 0) {
-            System.out.println("Before selection: ");
-            printPopulation();
-        }
-
+        printPopulation();
         select();
         crossOver();
         mutate();
