@@ -44,7 +44,7 @@ public class PlayerSkeleton {
 
     public static void main(String[] args) {
         IO io = new IO();
-        Ecosystem ecosystem = new Ecosystem(io.importEcosystem(), 1, 40);
+        Ecosystem ecosystem = new Ecosystem(io.importEcosystem(), 201, 40);
         while(true) {
             ecosystem.play();
         }
