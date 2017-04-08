@@ -29,22 +29,22 @@ public class PlayerSkeleton {
         return move;
     }
 
-    private static double[][][] printPopulation(double[][][] population) {
-        for (int i = 0; i < population.length; i++) {
-            for(int j = 0; j < population[i].length; j++) {
-                for (int k = 0; k < population[i][j].length; k++) {
-                    System.out.print(population[i][j][k] + ", ");
+    private static void printPopulation(double[][][] ecosystem) {
+        System.out.println("");
+        for (int i = 0; i < ecosystem.length; i++) {
+            for(int j = 0; j < ecosystem[i].length; j++) {
+                for (int k = 0; k < ecosystem[i][j].length; k++) {
+                    System.out.print(ecosystem[i][j][k] + ",");
                 }
-                System.out.println("");
+                System.out.print("\n");
             }
-            System.out.println("");
+            System.out.print("\n");
         }
-        return population;
     }
 
     public static void main(String[] args) {
         IO io = new IO();
-        Ecosystem ecosystem = new Ecosystem(io.importEcosystem(), 201, 10);
+        Ecosystem ecosystem = new Ecosystem(io.importEcosystem(), 211, 10);
         while(true) {
             ecosystem.play();
         }

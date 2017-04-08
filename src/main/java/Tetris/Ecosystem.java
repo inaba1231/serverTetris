@@ -50,13 +50,12 @@ public class Ecosystem {
             }
         }
 
-        printPopulation();
         select();
         crossOver();
         mutate();
 
-        if (generation % exchangePeriod == 0) {
-            System.out.println("After selection: ");
+        if (generation % (exchangePeriod/2) == 0) {
+            if (generation % exchangePeriod == 0) System.out.println("After exchange: ");
             printPopulation();
         }
 
@@ -151,11 +150,11 @@ public class Ecosystem {
         for (int i = 0; i < ecosystem.length; i++) {
             for(int j = 0; j < ecosystem[i].length; j++) {
                 for (int k = 0; k < ecosystem[i][j].length; k++) {
-                    System.out.print(ecosystem[i][j][k] + ", ");
+                    System.out.print(ecosystem[i][j][k] + ",");
                 }
-                System.out.println("");
+                System.out.print("\n");
             }
-            System.out.println("");
+            System.out.print("\n");
         }
     }
 }
