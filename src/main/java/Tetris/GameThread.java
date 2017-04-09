@@ -69,7 +69,7 @@ public class GameThread implements Runnable {
             }
             //frame.dispose();
             //System.out.println("Set " + i + " of population " + populationIndex + " cleared " + s.getRowsCleared() + " rows.");
-            if (s.getRowsCleared() >= 100000) printSet(s.getRowsCleared(), i, population[i]);
+            if (s.getRowsCleared() >= 1000000) printSet(s.getRowsCleared(), i, population[i]);
             updateCumulativeFitness(i, s.getRowsCleared());
             updateWorstScore(s.getRowsCleared());
             updateBestScore(s.getRowsCleared());
