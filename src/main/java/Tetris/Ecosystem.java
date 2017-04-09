@@ -50,17 +50,13 @@ public class Ecosystem {
             }
         }
 
+        if (generation % exchangePeriod == 0) {
+            System.out.println("Before exchange: ");
+            printPopulation();
+        }
         select();
         crossOver();
         mutate();
-
-        /*
-        if (generation % (exchangePeriod/2) == 0) {
-            if (generation % exchangePeriod == 0) System.out.println("After exchange: ");
-            printPopulation();
-        }
-        */
-
         generation++;
     }
 
