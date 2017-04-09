@@ -34,7 +34,7 @@ public class Ecosystem {
 
         Thread[] threads = new Thread[ecosystem.length];
 
-        System.out.println("Generation " + generation + ": ");
+        System.out.println("Generation " + generation + "... ");
 
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new Thread(new GameThread(ecosystem[i], i, cumulativeFitness, worstScore, bestScore));
@@ -44,7 +44,7 @@ public class Ecosystem {
         for (int i = 0; i < threads.length; i++) {
             try {
                 threads[i].join();
-                System.out.println("Population " + (i + 1) + " (worst | avg | best): " + worstScore[i] + " | " + ((cumulativeFitness[i][cumulativeFitness[i].length - 1])/ecosystem[i].length) + " | " + bestScore[i]);
+                //System.out.println("Population " + (i + 1) + " (worst | avg | best): " + worstScore[i] + " | " + ((cumulativeFitness[i][cumulativeFitness[i].length - 1])/ecosystem[i].length) + " | " + bestScore[i]);
             } catch(Exception e) {
 
             }
@@ -54,10 +54,12 @@ public class Ecosystem {
         crossOver();
         mutate();
 
+        /*
         if (generation % (exchangePeriod/2) == 0) {
             if (generation % exchangePeriod == 0) System.out.println("After exchange: ");
             printPopulation();
         }
+        */
 
         generation++;
     }

@@ -34,6 +34,20 @@ public class GameThread implements Runnable {
         if (score > bestScore[populationIndex]) bestScore[populationIndex] = score;
     }
 
+    private String getString(double[] set) {
+        String s = "";
+        for (double weight : set) {
+            s += weight + ",";
+        }
+        return s;
+    }
+
+    private synchronized void printSet(int score, int setIndex, double[] set) {
+        System.out.println("Set " + setIndex + " of population " + populationIndex + " cleared " + score + " lines.");
+        String s = getString(set);
+        System.out.println(s);
+    }
+
     public void run() {
         for (int i = 0; i < population.length; i++) {
             State s = new State();
@@ -55,6 +69,7 @@ public class GameThread implements Runnable {
             }
             //frame.dispose();
             //System.out.println("Set " + i + " of population " + populationIndex + " cleared " + s.getRowsCleared() + " rows.");
+            if (s.getRowsCleared() >= 100000) printSet(s.getRowsCleared(), i, population[i]);
             updateCumulativeFitness(i, s.getRowsCleared());
             updateWorstScore(s.getRowsCleared());
             updateBestScore(s.getRowsCleared());
