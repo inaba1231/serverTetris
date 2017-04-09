@@ -53,7 +53,7 @@ public class Ecosystem {
         select();
         crossOver();
         mutate();
-        if (generation % (exchangePeriod/4) == 0) {
+        if (generation % (10) == 0) {
             //System.out.println("Before exchange: ");
             printPopulation();
         }
