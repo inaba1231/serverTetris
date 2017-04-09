@@ -1,5 +1,6 @@
 package Tetris;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static Tetris.Constants.*;
@@ -10,25 +11,27 @@ import static Tetris.Constants.*;
 public class Population {
     double[][] population;
     int generation;
-    int[] fitnessValues;
-    int[] cumulativeFitness;
     public Random nature;
-    int worstScore;
-    int bestScore;
+    int[] worstScore;
+    int[] bestScore;
+    int[] totalScore;
 
 
     public Population(double[][] population, int generation) {
         this.population = population;
         this.generation = generation;
         this.nature = new Random();
+        this.worstScore = new int[population.length];
+        Arrays.fill(this.worstScore, Integer.MAX_VALUE);
+        this.bestScore = new int[population.length];
+        Arrays.fill(this.bestScore, 0);
+        this.totalScore = new int[population.length];
+        Arrays.fill(this.totalScore, 0);
     }
 
     public void play() {
-        fitnessValues = new int[population.length];
-        cumulativeFitness = new int[population.length];
-        worstScore = Integer.MAX_VALUE;
-        bestScore = 0;
-
+        int[] fitnessValues = new int[population.length];
+        System.out.println("Generation " + generation + "... ");
         Thread[] threads = new Thread[population.length];
 
         for (int i = 0; i < threads.length; i++) {
@@ -39,28 +42,18 @@ public class Population {
         for (int i = 0; i < threads.length; i++) {
             try {
                 threads[i].join();
+                totalScore[i] += fitnessValues[i];
 
-                if (i == 0) {
-                    cumulativeFitness[i] = fitnessValues[i];
-                } else {
-                    cumulativeFitness[i] = fitnessValues[i] + cumulativeFitness[i - 1];
-                }
+                if (fitnessValues[i] < worstScore[i]) worstScore[i] = fitnessValues[i];
 
-                if (fitnessValues[i] < worstScore) worstScore = fitnessValues[i];
+                if (fitnessValues[i] > bestScore[i]) bestScore[i] = fitnessValues[i];
 
-                if (fitnessValues[i] > bestScore) bestScore = fitnessValues[i];
+                System.out.println("Set " + i + " ( " + worstScore[i] + " | "
+                        + (totalScore[i]/generation) + " | " + bestScore[i] + " ) ");
             } catch(Exception e) {
 
             }
         }
-
-        System.out.println("Generation " + generation + " (worst | best): " + worstScore + " | " + bestScore);
-        if (generation % 5 == 0) {
-            printPopulation();
-        }
-        select();
-        crossOver();
-        mutate();
         generation++;
     }
 
@@ -89,6 +82,7 @@ public class Population {
         }
     }
 
+    /*
     private void select() {
         int totalFitness = cumulativeFitness[cumulativeFitness.length - 1];
         if (totalFitness == 0) {
@@ -105,6 +99,7 @@ public class Population {
         }
         population = nextPopulation;
     }
+    */
 
     private void crossOver() {
         for (int i = 1; i < population.length; i = i + 2) {
