@@ -94,17 +94,21 @@ public class Ecosystem {
             }
 
             double[][] nextPopulation = new double[POPULATION_SIZE][SET_LENGTH];
-            for (int i = 0; i < nextPopulation.length; i++) {
-                if (generation % exchangePeriod != 0) {
+            if (generation % exchangePeriod != 0) {
+                for (int i = 0; i < nextPopulation.length; i++) {
                     int randomNumber = nature.nextInt(totalFitness);
                     int selectedSet = binarySearch(cumulativeFitness[j], randomNumber);
                     nextPopulation[i] = copy(ecosystem[j][selectedSet]);
-                    //System.out.println("Set " + selectedSet + " has been selected.");
-                } else {
-                    int randomNumber = nature.nextInt(cumulativeFitness[i][cumulativeFitness[i].length - 1]);
-                    int selectedSet = binarySearch(cumulativeFitness[i], randomNumber);
-                    nextPopulation[i] = copy(ecosystem[i][selectedSet]);
-                    //System.out.println("Set " + selectedSet + " has been selected.");
+                }
+            } else {
+                for (int i = 0; i < nextPopulation.length; i++) {
+                    int index = i + j;
+                    if (index >= nextPopulation.length) {
+                        index = index - nextPopulation.length;
+                    }
+                    int randomNumber = nature.nextInt(cumulativeFitness[index][cumulativeFitness[index].length - 1]);
+                    int selectedSet = binarySearch(cumulativeFitness[index], randomNumber);
+                    nextPopulation[i] = copy(ecosystem[index][selectedSet]);
                 }
             }
             ecosystem[j] = nextPopulation;
