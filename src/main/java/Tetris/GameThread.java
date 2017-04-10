@@ -4,13 +4,13 @@ package Tetris;
  * Created by kazuhiro on 6/4/17.
  */
 public class GameThread implements Runnable {
-    double[][] population;
+    int[][] population;
     int populationIndex;
     int[][] cumulativeFitness;
     int[] worstScore;
     int[] bestScore;
 
-    public GameThread(double[][] population, int populationIndex, int[][] cumulativeFitness, int[] worstScore, int[] bestScore) {
+    public GameThread(int[][] population, int populationIndex, int[][] cumulativeFitness, int[] worstScore, int[] bestScore) {
         this.population = population;
         this.populationIndex = populationIndex;
         this.cumulativeFitness = cumulativeFitness;
@@ -34,7 +34,7 @@ public class GameThread implements Runnable {
         if (score > bestScore[populationIndex]) bestScore[populationIndex] = score;
     }
 
-    private String getString(double[] set) {
+    private String getString(int[] set) {
         String s = "";
         for (double weight : set) {
             s += weight + ",";
@@ -42,7 +42,7 @@ public class GameThread implements Runnable {
         return s;
     }
 
-    private synchronized void printSet(int score, int setIndex, double[] set) {
+    private synchronized void printSet(int score, int setIndex, int[] set) {
         System.out.println("Set " + setIndex + " of population " + populationIndex + " cleared " + score + " lines.");
         String s = getString(set);
         System.out.println(s);

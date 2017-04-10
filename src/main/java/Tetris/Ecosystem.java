@@ -9,7 +9,7 @@ import static Tetris.Constants.*;
  * Created by kazuhiro on 6/4/17.
  */
 public class Ecosystem {
-    double[][][] ecosystem;
+    int[][][] ecosystem;
     int generation;
     int[][] cumulativeFitness;
     int[] worstScore;
@@ -18,7 +18,7 @@ public class Ecosystem {
     public Random nature;
 
 
-    public Ecosystem(double[][][] ecosystem, int generation, int exchangePeriod) {
+    public Ecosystem(int[][][] ecosystem, int generation, int exchangePeriod) {
         this.ecosystem = ecosystem;
         this.generation = generation;
         this.exchangePeriod = exchangePeriod;
@@ -60,8 +60,8 @@ public class Ecosystem {
         generation++;
     }
 
-    public static double[] copy(double[] a) {
-        double[] field = new double[a.length];
+    public static int[] copy(int[] a) {
+        int[] field = new int[a.length];
         for (int i = 0; i < field.length; i++) {
             field[i] = a[i];
         }
@@ -93,7 +93,7 @@ public class Ecosystem {
                 return;
             }
 
-            double[][] nextPopulation = new double[POPULATION_SIZE][SET_LENGTH];
+            int[][] nextPopulation = new int[POPULATION_SIZE][SET_LENGTH];
             if (generation % exchangePeriod != 0) {
                 for (int i = 0; i < nextPopulation.length; i++) {
                     int randomNumber = nature.nextInt(totalFitness);
@@ -120,7 +120,7 @@ public class Ecosystem {
             for (int i = 1; i < ecosystem[k].length; i = i + 2) {
                 int crossOverPoint = nature.nextInt(ecosystem[k][i].length);
                 for (int j = crossOverPoint; j < ecosystem[k][i].length; j++) {
-                    double temp = ecosystem[k][i - 1][j];
+                    int temp = ecosystem[k][i - 1][j];
                     ecosystem[k][i - 1][j] = ecosystem[k][i][j];
                     ecosystem[k][i][j] = temp;
                 }
@@ -134,12 +134,7 @@ public class Ecosystem {
             for (int i = 0; i < ecosystem[k].length; i++) {
                 for (int j = 0; j < ecosystem[k][i].length; j++) {
                     if (nature.nextDouble() < MUTATION_RATE) {
-                        double mutation = nature.nextDouble();
-                        if (nature.nextBoolean()) {
-                            ecosystem[k][i][j] = mutation;
-                        } else {
-                            ecosystem[k][i][j] = -mutation;
-                        }
+                        ecosystem[k][i][j] = BigBang.randomWeight();
                         //System.out.println("Mutation occurs in new set " + i + " at index " + j + " with mutation value: " + mutation + ".");
                     }
                 }

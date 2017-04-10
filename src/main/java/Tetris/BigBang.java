@@ -12,9 +12,9 @@ import static Tetris.Constants.SET_LENGTH;
  */
 public class BigBang {
 
-    public static double[][] resetPopulation() {
+    public static int[][] resetPopulation() {
 
-        double[][] population = new double[POPULATION_SIZE][SET_LENGTH];
+        int[][] population = new int[POPULATION_SIZE][SET_LENGTH];
 
         for (int i = 0; i < POPULATION_SIZE; i++) {
             for (int j = 0; j < SET_LENGTH; j++) {
@@ -26,9 +26,9 @@ public class BigBang {
 
     }
 
-    public static double randomWeight() {
+    public static int randomWeight() {
         Random nature = new Random();
-        double weight = nature.nextDouble();
+        int weight = nature.nextInt(5000);
         if (nature.nextBoolean()) {
             return weight;
         } else {

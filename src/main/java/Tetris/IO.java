@@ -59,8 +59,8 @@ public class IO {
         }
     }
 
-    public double[][][] importEcosystem() {
-        double[][][] population = new double[POPULATION_COUNT][POPULATION_SIZE][SET_LENGTH];
+    public int[][][] importEcosystem() {
+        int[][][] population = new int[POPULATION_COUNT][POPULATION_SIZE][SET_LENGTH];
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -77,7 +77,7 @@ public class IO {
                             line = br.readLine().split(",");
                             for (int j = 0; j < SET_LENGTH; j++) {
                                 if (j < inputSetLength) {
-                                    population[k][i][j] = Double.parseDouble(line[j]);
+                                    population[k][i][j] = Integer.parseInt(line[j]);
                                 } else {
                                     population[k][i][j] = BigBang.randomWeight();
                                 }

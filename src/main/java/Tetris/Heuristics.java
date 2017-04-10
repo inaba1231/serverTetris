@@ -9,14 +9,14 @@ import static Tetris.Constants.ROWS;
 public class Heuristics {
 
     public int size;
-    public double[] weight;
+    public int[] weight;
 
-    public Heuristics(int size, double[] weight) {
+    public Heuristics(int size, int[] weight) {
         this.size = size;
         this.weight = weight;
     }
 
-    public void updateWeight(double[] weight) {
+    public void updateWeight(int[] weight) {
         this.weight = weight;
     }
 

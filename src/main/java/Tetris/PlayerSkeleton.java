@@ -6,7 +6,7 @@ public class PlayerSkeleton {
     public MakeMove m;
     public LegalMoves l;
 
-    public PlayerSkeleton(double[] set) {
+    public PlayerSkeleton(int[] set) {
         h = new Heuristics(set.length, set);
         m = new MakeMove();
         l = new LegalMoves();
@@ -44,7 +44,7 @@ public class PlayerSkeleton {
 
     public static void main(String[] args) {
         IO io = new IO();
-        Ecosystem ecosystem = new Ecosystem(io.importEcosystem(), 100, 4);
+        Ecosystem ecosystem = new Ecosystem(io.importEcosystem(), 1, 50);
         while(true) {
             ecosystem.play();
         }
