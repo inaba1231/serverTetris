@@ -13,7 +13,7 @@ import static Tetris.Constants.*;
  */
 public class IO {
 
-    public void exportEcosystem(double[][][] population) {
+    public void exportEcosystem(int[][][] population) {
         try {
             PrintWriter writer = new PrintWriter(filename, "UTF-8");
 
@@ -36,7 +36,7 @@ public class IO {
         }
     }
 
-    public void exportEcosystemFromTerminal(double[][][] population) {
+    public void exportEcosystemFromTerminal(int[][][] population) {
         try {
             PrintWriter writer = new PrintWriter("src/main/java/Tetris/output.txt", "UTF-8");
 
@@ -103,8 +103,8 @@ public class IO {
         return population;
     }
 
-    public double[][][] importEcosystemFromTerminal() {
-        double[][][] population = new double[POPULATION_COUNT][POPULATION_SIZE][SET_LENGTH];
+    public int[][][] importEcosystemFromTerminal() {
+        int[][][] population = new int[POPULATION_COUNT][POPULATION_SIZE][SET_LENGTH];
 
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/java/Tetris/input.txt"));
@@ -122,7 +122,7 @@ public class IO {
                             line = br.readLine().split(",");
                             for (int j = 0; j < SET_LENGTH; j++) {
                                 if (j < inputSetLength) {
-                                    population[k][i][j] = Double.parseDouble(line[j]);
+                                    population[k][i][j] = Integer.parseInt(line[j]);
                                 } else {
                                     population[k][i][j] = BigBang.randomWeight();
                                 }

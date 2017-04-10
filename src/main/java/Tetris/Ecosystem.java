@@ -44,7 +44,7 @@ public class Ecosystem {
         for (int i = 0; i < threads.length; i++) {
             try {
                 threads[i].join();
-                //System.out.println("Population " + (i + 1) + " (worst | avg | best): " + worstScore[i] + " | " + ((cumulativeFitness[i][cumulativeFitness[i].length - 1])/ecosystem[i].length) + " | " + bestScore[i]);
+                System.out.println("Population " + (i + 1) + " (worst | avg | best): " + worstScore[i] + " | " + ((cumulativeFitness[i][cumulativeFitness[i].length - 1])/ecosystem[i].length) + " | " + bestScore[i]);
             } catch(Exception e) {
 
             }
