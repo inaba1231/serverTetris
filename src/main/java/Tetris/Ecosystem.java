@@ -150,9 +150,9 @@ public class Ecosystem {
                 for (int k = 0; k < ecosystem[i][j].length; k++) {
                     System.out.print(ecosystem[i][j][k] + ",");
                 }
-                System.out.print("\n");
+                System.out.println("");
             }
-            System.out.print("\n");
+            System.out.println("");
         }
     }
 }
