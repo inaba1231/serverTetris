@@ -32,6 +32,11 @@ public class Ecosystem {
         bestScore = new int[ecosystem.length];
         Arrays.fill(bestScore, 0);
 
+        if (generation % exchangePeriod == 0) {
+            System.out.println("Before exchange: ");
+            printPopulation();
+        }
+
         Thread[] threads = new Thread[ecosystem.length];
 
         System.out.println("Generation " + generation + "... ");
@@ -50,10 +55,6 @@ public class Ecosystem {
             }
         }
 
-        if (generation % exchangePeriod == 0) {
-            System.out.println("Before exchange: ");
-            printPopulation();
-        }
         select();
         crossOver();
         mutate();
